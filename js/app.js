@@ -196,7 +196,7 @@ function renderQueue() {
       <div class="empty-state">
         <div class="empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
         <p>Queue is empty</p>
-        <span>Add songs using Quick Play or the Add Song tab</span>
+        <span>add songs using Quick Play or the add songs tab</span>
       </div>`;
     return;
   }
@@ -565,7 +565,7 @@ function setView(name) {
     requestAnimationFrame(() => requestAnimationFrame(() => view.classList.add('active')));
   }
   if (navBtn) navBtn.classList.add('active');
-  const titles = { player: 'Player', queue: 'Queue', search: 'Add Song', settings: 'Settings' };
+  const titles = { player: 'Player', queue: 'Queue', search: 'add songs', settings: 'Settings' };
   $('pageTitle').textContent = titles[name] || name;
 }
 
@@ -691,7 +691,7 @@ document.addEventListener('DOMContentLoaded', () => {
     await addSong(input.value, null, input, $('quickAddBtn'));
   });
 
-  // Add Song — search input with debounce
+  // add songs — search input with debounce
   $('songInput').addEventListener('input', e => {
     const q = e.target.value.trim();
     clearTimeout(searchDebounce);

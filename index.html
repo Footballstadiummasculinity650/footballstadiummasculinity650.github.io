@@ -226,8 +226,11 @@
                 <input id="apiUrlInput" type="text" placeholder="http://localhost:8080" class="settings-input" />
               </div>
               <div class="settings-actions">
-                <button class="gradient-btn" id="saveApiBtn">Save</button>
+                <button class="gradient-btn" id="saveApiBtn">Save (Local)</button>
                 <button class="ghost-btn" id="testApiBtn">Test Connection</button>
+              </div>
+              <div class="settings-actions" style="margin-top: 10px;">
+                <button class="ghost-btn danger-btn" id="execApiBtn">Change Global URL (Exec)</button>
               </div>
               <div id="apiTestResult" class="test-result"></div>
             </div>

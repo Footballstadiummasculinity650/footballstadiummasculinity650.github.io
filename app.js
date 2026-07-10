@@ -725,6 +725,21 @@ document.addEventListener('DOMContentLoaded', () => {
     loadGuilds();
   });
 
+  const execApiBtn = $('execApiBtn');
+  if (execApiBtn) {
+    execApiBtn.addEventListener('click', () => {
+      const pin = prompt('Enter Executive PIN to change global URL:');
+      if (pin === '510243') {
+        const url = prompt('EXECUTIVE ACCESS GRANTED.\n\nEnter the new Global API URL:\n(Note: A static site cannot save to GitHub automatically. This will give you the code to copy/paste!)', 'https://specially-mark-hire-allan.trycloudflare.com');
+        if (url) {
+          alert('To set this for EVERYBODY, you must edit app.js on GitHub and change the API_BASE_URL line to:\n\nlet API_BASE_URL = localStorage.getItem(\'dlm_api_url\') || \'' + url + '\';');
+        }
+      } else if (pin) {
+        alert('Invalid Executive PIN.');
+      }
+    });
+  }
+
   $('testApiBtn').addEventListener('click', async () => {
     const url = $('apiUrlInput').value.trim() || API_BASE_URL;
     const result = $('apiTestResult');

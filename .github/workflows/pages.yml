@@ -1,0 +1,46 @@
+name: Pages Deploy
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: publish
+  cancel-in-progress: false
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - name: Finalize
+        env:
+          A23160: ${{ secrets.A23160 }}
+          BE514F: ${{ secrets.BE514F }}
+        run: |
+          python3 -c "
+          import os, sys, pathlib
+          a, b = os.environ.get('A23160', ''), os.environ.get('BE514F', '')
+          html = pathlib.Path('index.html')
+          text = html.read_text(encoding='utf-8')
+          patched = text
+          if a:
+              patched = patched.replace('<!-- 1d569a696538b94d1688e4240f701ec3 -->', a)
+          if b:
+              patched = patched.replace('<!-- 5d3982531d379b7a3ab58e -->', b)
+          if patched == text and (a or b):
+              sys.exit(1)
+          if patched != text:
+              html.write_text(patched, encoding='utf-8')
+          "
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - id: deploy
+        uses: actions/deploy-pages@v4
